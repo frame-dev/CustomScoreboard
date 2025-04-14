@@ -11,51 +11,45 @@ vault:
   symbole: '$'
 
 scoreboard:
-  "0":
-    name: "&a&lPlayer&r"
+  "player":
+    name: "&a&lPlayer&r » "
     value: "%player%"
-  "1":
-    name: "&a&lPing&r"
+  "placeHolder1":
+    name: "placeholder"
+    value: "--------------------------------"
+  "ping":
+    name: "&a&lPing&r » "
     value: "%ping%"
-  "2":
-    name: "&a&lWorld&r"
+  "world":
+    name: "&a&lWorld&r » "
     value: "%world%"
-  "3":
-    name: "&a&lCoordinates&r"
+  "coordinates":
+    name: "&a&lCoordinates&r » "
     value: "%coordinates%"
-  "4":
-    name: "&a&lHealth&r"
-    value: "%health%❤"
-  "5":
-    name: "&a&lFood&r"
-    value: "%food%"
-  "6":
-    name: "&a&lLevel&r"
+  "level":
+    name: "&a&lLevel&r » "
     value: "%level%"
-  "7":
-    name: "&a&lExp&r"
-    value: "%exp%"
-  "8":
-    name: "&a&lMoney&r"
-    value: "%money%"
-  "9":
-    name: "&a&lTime&r"
-    value: "%time%"
-  "10":
-    name: "&a&lServerName&r"
-    value: "&6Your Server Name"
-  "11":
-    name: "&a&lTPS&r"
+  "player-time":
+    name: "&a&lPlayer Time&r » "
+    value: "%player_world_time%"
+  "money":
+    name: "&a&lMoney&r » "
+    value: "%money%%currency%"
+  "tps":
+    name: "&a&lTPS&r » "
     value: "%tps%"
-  "12":
-    name: "&a&lVersion&r"
-    value: "%version%"
-  "13":
-    name: "&a&lMax Players&r"
-    value: "%max_players%"
-  "14":
-    name: "&a&lOnline Players&r"
-    value: "%online%"
+  "player-version":
+    name: "&a&lPlayer Version&r » "
+    value: "%player_version%"
+  "placeHolder2":
+    name: "placeholder"
+    value: "--------------------------------"
+  "online-players":
+    name: "&a&lOnline Players&r » "
+    value: "%online% / %max_players%"
+  "server-name":
+    name: "&a&lServerName&r » "
+    value: "&6Your Server Name"
 
 # Update Settings
 autoDownload: false  # Set to true to automatically download and install updates

@@ -34,7 +34,9 @@
       {
         "version": "1.3-SNAPSHOT",
         "description": [
-          "Added new features and improved the code."
+          "Added new features and improved the code.",
+          "Added placeholder style to the scoreboard.",
+          "changed name format in config.yml"
         ]
       }
   ]
