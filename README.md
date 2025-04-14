@@ -6,7 +6,7 @@
 
 ### Changelogs
 
-[Changelogs]()
+[Changelogs](https://github.com/frame-dev/CustomScoreboard/blob/master/CHANGELOG.md)
 
 ---
 
