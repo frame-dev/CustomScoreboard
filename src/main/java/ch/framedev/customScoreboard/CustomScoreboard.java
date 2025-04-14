@@ -12,30 +12,36 @@ import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder
 
 public final class CustomScoreboard extends JavaPlugin {
 
+    // Singleton instance
     private static CustomScoreboard instance;
+
+    // Managers
     private VaultManager vaultManager;
     private CustomSBManager customSBManager;
 
     @Override
     public void onLoad() {
-        if(!getServer().getPluginManager().isPluginEnabled("PacketEvents")) {
+        if (!getServer().getPluginManager().isPluginEnabled("PacketEvents")) {
             getLogger().severe("PacketEvents is not installed! Please install it to use this plugin!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
         PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
-        //On Bukkit, calling this here is essential, hence the name "load"
+        // On Bukkit, calling this here is essential, hence the name "load"
         PacketEvents.getAPI().load();
     }
 
     @Override
     public void onEnable() {
+        // Check if the server is running version 1.21.4
         if (!getServer().getVersion().contains("1.21.4")) {
             getLogger().severe("This plugin is not compatible with this version of Minecraft!");
             getLogger().severe("Please use version 1.21.4 of Minecraft!");
             getLogger().severe("If you want to use this plugin, please use version 1.21.4 of Minecraft!");
             getServer().getPluginManager().disablePlugin(this);
         }
+
+        // Save the default config
         saveDefaultConfig();
 
         // Initialize the Singleton instance
@@ -60,8 +66,10 @@ public final class CustomScoreboard extends JavaPlugin {
         // Lag Checker
         getServer().getScheduler().runTaskTimerAsynchronously(this, new Lag(), 100L, 1L);
 
+        // Initialize PacketEvents
         PacketEvents.getAPI().init();
 
+        // Register the customscoreboard command
         getCommand("customscoreboard").setExecutor(this);
     }
 
@@ -71,11 +79,14 @@ public final class CustomScoreboard extends JavaPlugin {
             customSBManager.getTask().cancel();
             customSBManager.setTask(null);
         }
+
+        // Terminate PacketEvents
         PacketEvents.getAPI().terminate();
     }
 
     /**
      * Get the Vault Manager
+     * 
      * @return Vault Manager
      */
     public VaultManager getVaultManager() {
@@ -84,6 +95,7 @@ public final class CustomScoreboard extends JavaPlugin {
 
     /**
      * Get the Custom Scoreboard Manager
+     * 
      * @return Custom Scoreboard Manager
      */
     public CustomSBManager getCustomSBManager() {
@@ -92,6 +104,7 @@ public final class CustomScoreboard extends JavaPlugin {
 
     /**
      * Get the instance of the plugin
+     * 
      * @return Instance of the plugin
      */
     public static CustomScoreboard getInstance() {
@@ -103,6 +116,7 @@ public final class CustomScoreboard extends JavaPlugin {
 
     /**
      * Create a scoreboard
+     * 
      * @param name Name of the scoreboard
      */
     public void createScoreboard(String name, Scoreboard scoreboard) {
@@ -111,21 +125,35 @@ public final class CustomScoreboard extends JavaPlugin {
         }
     }
 
+    /**
+     * Handle the customscoreboard command
+     * 
+     * @param sender  Command sender
+     * @param command Command
+     * @param label   Label
+     * @param args    Arguments
+     * @return True if the command was handled, false otherwise
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // Check if the command is the customscoreboard command
         if (command.getName().equalsIgnoreCase("customscoreboard")) {
-            if(!sender.hasPermission("customscoreboard.command")) {
+            // Check if the sender has the customscoreboard.command permission
+            if (!sender.hasPermission("customscoreboard.command")) {
                 sender.sendMessage("You do not have permission to use this command!");
                 return true;
             }
+
+            // Check if the args are empty and send the help message
             if (args.length == 0) {
                 sender.sendMessage("Usage: /customscoreboard help");
                 return true;
+                // Check if the args are "reload" and reload the config
             } else if (args[0].equalsIgnoreCase("reload")) {
-                if (sender.hasPermission("customscoreboard.reload")) {
-                    reloadConfig();
-                    sender.sendMessage("CustomScoreboard reloaded!");
-                }
+                // Reload the config
+                reloadConfig();
+                // Send a message to the sender
+                sender.sendMessage("CustomScoreboard reloaded!");
             }
         }
         return super.onCommand(sender, command, label, args);

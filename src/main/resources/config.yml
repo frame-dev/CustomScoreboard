@@ -20,7 +20,7 @@ scoreboard:
     value: "%coordinates%"
   "4":
     name: "&a&lHealth&r"
-    value: "%health%❤️"
+    value: "%health%❤"
   "5":
     name: "&a&lFood&r"
     value: "%food%"
