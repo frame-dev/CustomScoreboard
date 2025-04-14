@@ -4,6 +4,12 @@
 
 ---
 
+### Changelogs
+
+[Changelogs]()
+
+---
+
 ## Status
 
 [![Build Java with Maven](https://github.com/frame-dev/CustomScoreboard/actions/workflows/maven.yml/badge.svg)](https://github.com/frame-dev/CustomScoreboard/actions/workflows/maven.yml)
