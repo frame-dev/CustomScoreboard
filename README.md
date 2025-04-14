@@ -50,40 +50,46 @@ Here's an example:
 
 ``` yaml
 scoreboard:
+scoreboard:
   "player":
-    name: "&a&lPlayer&r"
+    name: "&a&lPlayer&r » "
     value: "%player%"
+  "placeHolder1":
+    name: "placeholder"
+    value: "--------------------------------"
   "ping":
-    name: "&a&lPing&r"
+    name: "&a&lPing&r » "
     value: "%ping%"
   "world":
-    name: "&a&lWorld&r"
+    name: "&a&lWorld&r » "
     value: "%world%"
   "coordinates":
-    name: "&a&lCoordinates&r"
+    name: "&a&lCoordinates&r » "
     value: "%coordinates%"
   "level":
-    name: "&a&lLevel&r"
+    name: "&a&lLevel&r » "
     value: "%level%"
   "player-time":
-    name: "&a&lPlayer Time&r"
+    name: "&a&lPlayer Time&r » "
     value: "%player_world_time%"
   "money":
-    name: "&a&lMoney&r"
-    value: "%money%"
-  "server-name":
-    name: "&a&lServerName&r"
-    value: "&6Your Server Name"
+    name: "&a&lMoney&r » "
+    value: "%money%%currency%"
   "tps":
-    name: "&a&lTPS&r"
+    name: "&a&lTPS&r » "
     value: "%tps%"
   "player-version":
-    name: "&a&lPlayer Version&r"
+    name: "&a&lPlayer Version&r » "
     value: "%player_version%"
+  "placeHolder2":
+    name: "placeholder"
+    value: "--------------------------------"
   "online-players":
-    name: "&a&lOnline Players&r"
+    name: "&a&lOnline Players&r » "
     value: "%online% / %max_players%"
-
+  "server-name":
+    name: "&a&lServerName&r » "
+    value: "&6Your Server Name"
 ```
 
 ---

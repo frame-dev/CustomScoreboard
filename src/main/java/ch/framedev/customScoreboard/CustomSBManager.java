@@ -56,7 +56,7 @@ public class CustomSBManager implements Listener {
             plugin.getLogger().warning("Cannot create scoreboard with null or empty name");
             return;
         }
-        
+
         String displayName = plugin.getConfig().getString("scoreboard-settings.displayName", "&6Scoreboard");
         displayName = displayName.replace("&", "§");
         if (scoreboard == null) {
@@ -67,31 +67,31 @@ public class CustomSBManager implements Listener {
                 objective = scoreboard.registerNewObjective(name, Criteria.DUMMY, displayName);
             } else {
                 objective = scoreboard.getObjective(name);
-                for(String entry : scoreboard.getEntries()) {
+                for (String entry : scoreboard.getEntries()) {
                     scoreboard.resetScores(entry);
                 }
             }
-            
+
             if (objective == null) {
                 plugin.getLogger().severe("Failed to create or get objective for scoreboard: " + name);
                 return;
             }
-            
+
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
             objective.setDisplayName(displayName);
 
             Map<String, Object> objectives = new CustomSerializer(name, scoreboard, objective).serialize();
             fileManager.setScoreboard(name, objectives);
-            
+
             for (Player player : Bukkit.getOnlinePlayers()) {
                 Set<String> usedEntries = new HashSet<>();
                 Map<Regex, Object> replacements = loadCustomRegexReplacements(player);
-                
+
                 // Clear previous entries before adding new ones
                 for (String entry : scoreboard.getEntries()) {
                     scoreboard.resetScores(entry);
                 }
-                
+
                 if (plugin.getConfig().getConfigurationSection("scoreboard") == null) {
                     plugin.getLogger().warning("No scoreboard configuration found in config.yml");
                     continue;
@@ -101,37 +101,67 @@ public class CustomSBManager implements Listener {
                 Set<String> scoreboardEntries = plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false);
 
                 // Loop through all scoreboard entries
-                for(int i = 0; i < scoreboardEntries.size(); i++) {
+                for (int i = 0; i < scoreboardEntries.size(); i++) {
                     try {
                         // Get the score name and value
-                        String scoreName = plugin.getConfig().getString("scoreboard." + scoreboardEntries.toArray()[i] + ".name");
-                        String value = plugin.getConfig().getString("scoreboard." + scoreboardEntries.toArray()[i] + ".value");
+                        String scoreName = plugin.getConfig()
+                                .getString("scoreboard." + scoreboardEntries.toArray()[i] + ".name");
+                        String value = plugin.getConfig()
+                                .getString("scoreboard." + scoreboardEntries.toArray()[i] + ".value");
                         
-                        // Check if the score name and value are not null
-                        if (scoreName != null && value != null) {
-                            // Replace color codes
-                            scoreName = scoreName.replace("&", "§");
-                            // Replace regex
-                            value = Regex.replaceRegex(value, replacements);
-                            value = value.replace("&", "§");
-                            if(plugin.getVaultManager() != null && value.contains("%currency%")) {
-                                String currency = plugin.getConfig().getString("vault.symbole", "$");
-                                value = value.replace("%currency%", currency);
-                            }
-                            String fullEntry = value != null ? scoreName + ": " + value : scoreName + ": Not Set";
-
+                        // Check if this is a placeholder entry
+                        if (scoreName != null && scoreName.equalsIgnoreCase("placeholder")) {
+                            // Get the placeholder style from config or use default
+                            String placeholderStyle = value != null && !value.isEmpty() ? 
+                                    value : "--------------------------------";
+                            
+                            // Create the placeholder entry - use ONLY the placeholder style
+                            String fullEntry = placeholderStyle;
+                            
                             // Ensure uniqueness by appending spaces if necessary
                             while (usedEntries.contains(fullEntry)) {
                                 fullEntry += " ";
                             }
-                            // add full entry to used entries
+                            
+                            // Add full entry to used entries
                             usedEntries.add(fullEntry);
                             
                             // Set the score
                             try {
                                 objective.getScore(fullEntry).setScore(i);
                             } catch (NumberFormatException e) {
-                                plugin.getLogger().warning("Invalid score value: " + i + " for entry: " + fullEntry);
+                                plugin.getLogger()
+                                        .warning("Invalid score value: " + i + " for entry: " + fullEntry);
+                            }
+                        } else {
+                            // Regular scoreboard entry processing
+                            // Check if the score name and value are not null
+                            if (scoreName != null && value != null) {
+                                // Replace color codes
+                                scoreName = scoreName.replace("&", "§");
+                                // Replace regex
+                                value = Regex.replaceRegex(value, replacements);
+                                value = value.replace("&", "§");
+                                if (plugin.getVaultManager() != null && value.contains("%currency%")) {
+                                    String currency = plugin.getConfig().getString("vault.symbole", "$");
+                                    value = value.replace("%currency%", currency);
+                                }
+                                String fullEntry = value != null ? scoreName + "" + value : scoreName + ": Not Set";
+
+                                // Ensure uniqueness by appending spaces if necessary
+                                while (usedEntries.contains(fullEntry)) {
+                                    fullEntry += " ";
+                                }
+                                // add full entry to used entries
+                                usedEntries.add(fullEntry);
+
+                                // Set the score
+                                try {
+                                    objective.getScore(fullEntry).setScore(i);
+                                } catch (NumberFormatException e) {
+                                    plugin.getLogger()
+                                            .warning("Invalid score value: " + i + " for entry: " + fullEntry);
+                                }
                             }
                         }
                     } catch (Exception ex) {
@@ -139,7 +169,7 @@ public class CustomSBManager implements Listener {
                         plugin.getLogger().log(Level.SEVERE, "Error creating scoreboard: " + name, ex);
                     }
                 }
-                
+
                 try {
                     // Set the scoreboard
                     player.setScoreboard(scoreboard);
@@ -171,7 +201,7 @@ public class CustomSBManager implements Listener {
     private Map<Regex, Object> loadCustomRegexReplacements(Player player) {
         // Create a new map of regex replacements
         Map<Regex, Object> replacements = new HashMap<>();
-        
+
         // Check if the player is null
         if (player == null) {
             plugin.getLogger().warning("Cannot load regex replacements for null player");
@@ -193,24 +223,24 @@ public class CustomSBManager implements Listener {
                     SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
                     Date time = new Date();
                     replacements.put(regex, timeFormatter.format(time));
-                // Check if the regex is the player world time regex
+                    // Check if the regex is the player world time regex
                 } else if (regex == Regex.PLAYER_WORLD_TIME) {
                     // Get player's world time
                     long worldTime = player.getWorld().getTime();
-                    // Convert ticks to hours, minutes, seconds
+                    // Convert ticks to hours, minutes
                     int hours = (int) ((worldTime / 1000 + 6) % 24);
                     int minutes = (int) ((worldTime % 1000) / 1000 * 60);
-                    
+
                     // Format according to config or default
                     String formattedTime = String.format("%02d:%02d", hours, minutes);
                     replacements.put(regex, formattedTime);
-                // Check if the regex is the date regex
+                    // Check if the regex is the date regex
                 } else if (regex == Regex.DATE) {
                     String dateFormat = plugin.getConfig().getString("formats.date", "yyyy-MM-dd");
                     SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
                     Date date = new Date();
                     replacements.put(regex, dateFormatter.format(date));
-                // Check if the regex is the ip regex
+                    // Check if the regex is the ip regex
                 } else if (regex == Regex.IP) {
                     // Check if the player's address is null
                     if (player.getAddress() == null) {
@@ -225,7 +255,7 @@ public class CustomSBManager implements Listener {
                     } else {
                         replacements.put(regex, "Unknown");
                     }
-                // Check if the regex is the version regex
+                    // Check if the regex is the version regex
                 } else if (regex == Regex.VERSION)
                     // Get the server version
                     replacements.put(regex, Bukkit.getVersion());
@@ -233,7 +263,7 @@ public class CustomSBManager implements Listener {
                 else if (regex == Regex.PLAYER_VERSION) {
                     // Use PacketEvents to get player version
                     String playerVersion = "Unknown";
-                    
+
                     try {
                         int protocolVersion = 0;
                         PlayerManager playerManager = PacketEvents.getAPI().getPlayerManager();
@@ -243,9 +273,9 @@ public class CustomSBManager implements Listener {
                     } catch (Exception e) {
                         plugin.getLogger().log(Level.WARNING, "Error getting player version from PacketEvents", e);
                     }
-                    
+
                     replacements.put(regex, playerVersion);
-                // Check if the regex is the online players regex
+                    // Check if the regex is the online players regex
                 } else if (regex == Regex.ONLINE) {
                     // Check if the online players are not the same as the cached online players
                     if (onlinePlayers != Bukkit.getOnlinePlayers().size()) {
@@ -253,28 +283,28 @@ public class CustomSBManager implements Listener {
                         onlinePlayers = Bukkit.getOnlinePlayers().size();
                     }
                     replacements.put(regex, onlinePlayers);
-                // Check if the regex is the max players regex
+                    // Check if the regex is the max players regex
                 } else if (regex == Regex.MAX_PLAYERS) {
                     // Get the max players
                     replacements.put(regex, Bukkit.getMaxPlayers());
-                // Check if the regex is the money regex
+                    // Check if the regex is the money regex
                 } else if (regex == Regex.MONEY) {
                     // Check if the vault manager is not null
                     if (plugin.getVaultManager() != null) {
                         try {
                             VaultManager vaultManager = plugin.getVaultManager();
-                            
+
                             // Get the cached balance or use a default value
                             double cachedBalance = balanceCache.getOrDefault(player, 0.0);
                             replacements.put(regex, vaultManager.getEconomy().format(cachedBalance));
-                            
+
                             // Update the balance asynchronously
                             new BukkitRunnable() {
                                 @Override
                                 public void run() {
                                     try {
                                         double currentBalance = vaultManager.getEconomy().getBalance(player);
-                                        
+
                                         // Thread-safe update of the cache using compute
                                         balanceCache.compute(player, (key, oldValue) -> {
                                             if (oldValue == null || !oldValue.equals(currentBalance)) {
@@ -283,7 +313,8 @@ public class CustomSBManager implements Listener {
                                             return oldValue;
                                         });
                                     } catch (Exception e) {
-                                        plugin.getLogger().log(Level.WARNING, "Failed to get player balance from Vault asynchronously", e);
+                                        plugin.getLogger().log(Level.WARNING,
+                                                "Failed to get player balance from Vault asynchronously", e);
                                     }
                                 }
                             }.runTaskAsynchronously(plugin);
@@ -294,12 +325,13 @@ public class CustomSBManager implements Listener {
                     } else {
                         replacements.put(regex, "Vault not found");
                     }
-                // Check if the regex is the ping regex
+                    // Check if the regex is the ping regex
                 } else if (regex == Regex.PING)
                     replacements.put(regex, player.getPing() + "ms");
                 // Check if the regex is the coordinates regex
                 else if (regex == Regex.COORDINATES)
-                    replacements.put(regex, "X" + player.getLocation().getBlockX() + " Y" + player.getLocation().getBlockY() + " Z" + player.getLocation().getBlockZ());
+                    replacements.put(regex, "X" + player.getLocation().getBlockX() + " Y"
+                            + player.getLocation().getBlockY() + " Z" + player.getLocation().getBlockZ());
                 // Check if the regex is the health regex
                 else if (regex == Regex.HEALTH)
                     replacements.put(regex, player.getHealth());
@@ -326,28 +358,29 @@ public class CustomSBManager implements Listener {
         }
         return replacements;
     }
-    
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        
+
         if (player == null) {
             plugin.getLogger().warning("Received PlayerJoinEvent with null player");
             return;
         }
-        
+
         // Cancel existing task if it's still running
         if (joinTask != null && !joinTask.isCancelled()) {
             joinTask.cancel();
         }
-        
+
         joinTask = Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
             @Override
             public void run() {
                 try {
                     createScoreboard("custom_scoreboard", player.getScoreboard());
                 } catch (Exception e) {
-                    plugin.getLogger().log(Level.SEVERE, "Error creating scoreboard for player: " + player.getName(), e);
+                    plugin.getLogger().log(Level.SEVERE, "Error creating scoreboard for player: " + player.getName(),
+                            e);
                 }
             }
         }, 120);
@@ -355,8 +388,8 @@ public class CustomSBManager implements Listener {
 
     private String getPlayerVersion(int protocolVersion) {
         String playerVersion = "Unknown";
-         // Map protocol version to Minecraft version
-         if (protocolVersion >= 765) {
+        // Map protocol version to Minecraft version
+        if (protocolVersion >= 765) {
             playerVersion = "1.21.x";
         } else if (protocolVersion >= 762) {
             playerVersion = "1.20.4";

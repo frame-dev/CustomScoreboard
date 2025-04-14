@@ -6,7 +6,7 @@ formats:
 scoreboard-settings:
   updateInterval: 10 # Seconds
   displayName: "&6&lScoreboard"
-
+  placeholder-style: "════════════════════"
 vault:
   symbole: '$'
 
