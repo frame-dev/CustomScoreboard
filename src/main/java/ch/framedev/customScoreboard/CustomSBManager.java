@@ -53,7 +53,7 @@ public class CustomSBManager implements Listener {
             return;
         }
         
-        String displayName = plugin.getConfig().getString("scoreboard.displayName", "&6Scoreboard");
+        String displayName = plugin.getConfig().getString("scoreboard-settings.displayName", "&6Scoreboard");
         displayName = displayName.replace("&", "§");
         if (scoreboard == null) {
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -89,11 +89,11 @@ public class CustomSBManager implements Listener {
                     plugin.getLogger().warning("No scoreboard configuration found in config.yml");
                     continue;
                 }
-                
-                for (String keys : plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false)) {
+
+                for(int i = 0; i < plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false).size(); i++) {
                     try {
-                        String scoreName = plugin.getConfig().getString("scoreboard." + keys + ".name");
-                        String value = plugin.getConfig().getString("scoreboard." + keys + ".value");
+                        String scoreName = plugin.getConfig().getString("scoreboard." + i + ".name");
+                        String value = plugin.getConfig().getString("scoreboard." + i + ".value");
                         
                         if (scoreName != null && value != null) {
                             scoreName = scoreName.replace("&", "§");
@@ -108,12 +108,37 @@ public class CustomSBManager implements Listener {
                             usedEntries.add(fullEntry);
                             
                             try {
-                                objective.getScore(fullEntry).setScore(Integer.parseInt(keys));
+                                objective.getScore(fullEntry).setScore(i);
                             } catch (NumberFormatException e) {
-                                plugin.getLogger().warning("Invalid score value: " + keys + " for entry: " + fullEntry);
+                                plugin.getLogger().warning("Invalid score value: " + i + " for entry: " + fullEntry);
                             }
                         }
                     } catch (Exception ignored) {}
+                
+                // for (String keys : plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false)) {
+                //     try {
+                //         String scoreName = plugin.getConfig().getString("scoreboard." + keys + ".name");
+                //         String value = plugin.getConfig().getString("scoreboard." + keys + ".value");
+                        
+                //         if (scoreName != null && value != null) {
+                //             scoreName = scoreName.replace("&", "§");
+                //             value = Regex.replaceRegex(value, replacements);
+                //             value = value.replace("&", "§");
+                //             String fullEntry = value != null ? scoreName + ": " + value : scoreName + ": Not Set";
+
+                //             // Ensure uniqueness by appending spaces if necessary
+                //             while (usedEntries.contains(fullEntry)) {
+                //                 fullEntry += " ";
+                //             }
+                //             usedEntries.add(fullEntry);
+                            
+                //             try {
+                //                 objective.getScore(fullEntry).setScore(Integer.parseInt(keys));
+                //             } catch (NumberFormatException e) {
+                //                 plugin.getLogger().warning("Invalid score value: " + keys + " for entry: " + fullEntry);
+                //             }
+                //         }
+                //     } catch (Exception ignored) {}
                 }
                 
                 try {

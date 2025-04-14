@@ -61,7 +61,7 @@ public final class CustomScoreboard extends JavaPlugin {
         customSBManager = new CustomSBManager(this, new ScoreboardFileManager());
         getServer().getPluginManager().registerEvents(customSBManager, this);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> customSBManager.setScoreboard(), 240L,
-                getConfig().getInt("scoreboard.updateInterval", 20) * 20L);
+                getConfig().getInt("scoreboard-settings.updateInterval", 20) * 20L);
 
         // Lag Checker
         getServer().getScheduler().runTaskTimerAsynchronously(this, new Lag(), 100L, 1L);
