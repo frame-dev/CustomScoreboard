@@ -31,7 +31,7 @@
 - ⚙️ Fully customizable scoreboard lines via `config.yml`
 - 🔄 Automatic updates for scoreboard values
 - 📦 Event-based scoreboard assignment per player
-- Color code support using `&` as a replacement for `§` in all text
+- Color code support using `&` as a replacement for `§` in all text [List Of Colors](https://minecraft.fandom.com/wiki/Formatting_codes)
 
 ---
 

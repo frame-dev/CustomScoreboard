@@ -9,7 +9,7 @@
 - Added new placeholders: `%player_version%`, `%time_as_ticks%`, `%player_world_time%`
 - Added new command: `/customscoreboard reload` to reload the plugin configuration
 - Only 1.21.4 Server will run otherwise the plugin will be disabled
-- Color code support using `&` as a replacement for `§` in all text
+- Color code support using `&` as a replacement for `§` in all text [List Of Colors](https://minecraft.fandom.com/wiki/Formatting_codes)
 
 ### 🐛 Fixed
 - Fixed protocol version retrieval method to use correct API calls
