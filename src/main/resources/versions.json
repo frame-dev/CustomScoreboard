@@ -24,7 +24,10 @@
       {
         "version": "1.2-SNAPSHOT",
         "description": [
-          "Added new features and improved the code."
+          "Added new features and improved the code.",
+          "Added dependency 'PacketEvents' for packet listening.",
+          "Added support for PacketEvents",
+          "Updater has been rewritten and is now more reliable."
         ]
       }
   ]

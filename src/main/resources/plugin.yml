@@ -2,3 +2,11 @@ name: CustomScoreboard
 version: ${project.version}
 main: ch.framedev.customScoreboard.CustomScoreboard
 api-version: '1.21'
+description: A custom scoreboard plugin for Spigot.
+author: FrameDev
+
+commands:
+  customscoreboard:
+    description: A custom scoreboard plugin for Spigot.
+    aliases: [cs]
+    permission: customscoreboard.command

@@ -1,6 +1,8 @@
 package ch.framedev.customScoreboard;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -59,6 +61,8 @@ public final class CustomScoreboard extends JavaPlugin {
         getServer().getScheduler().runTaskTimerAsynchronously(this, new Lag(), 100L, 1L);
 
         PacketEvents.getAPI().init();
+
+        getCommand("customscoreboard").setExecutor(this);
     }
 
     @Override
@@ -105,5 +109,25 @@ public final class CustomScoreboard extends JavaPlugin {
         if (customSBManager != null) {
             customSBManager.createScoreboard(name, scoreboard);
         }
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("customscoreboard")) {
+            if(!sender.hasPermission("customscoreboard.command")) {
+                sender.sendMessage("You do not have permission to use this command!");
+                return true;
+            }
+            if (args.length == 0) {
+                sender.sendMessage("Usage: /customscoreboard help");
+                return true;
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                if (sender.hasPermission("customscoreboard.reload")) {
+                    reloadConfig();
+                    sender.sendMessage("CustomScoreboard reloaded!");
+                }
+            }
+        }
+        return super.onCommand(sender, command, label, args);
     }
 }
