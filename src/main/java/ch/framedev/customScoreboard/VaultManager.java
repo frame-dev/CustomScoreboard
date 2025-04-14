@@ -20,6 +20,10 @@ public class VaultManager {
 
     private Economy economy;
 
+    public VaultManager() {
+        setupEconomy();
+    }
+
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;

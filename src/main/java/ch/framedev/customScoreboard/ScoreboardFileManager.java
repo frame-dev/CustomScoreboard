@@ -23,6 +23,9 @@ public class ScoreboardFileManager {
     private final YamlConfiguration scoreboardConfig = YamlConfiguration.loadConfiguration(scoreboardFile);
 
     public ScoreboardFileManager() {
+        if (!CustomScoreboard.getInstance().getDataFolder().exists()) {
+            CustomScoreboard.getInstance().getDataFolder().mkdir();
+        }
         if (!scoreboardFile.exists()) {
             try {
                 scoreboardFile.createNewFile();

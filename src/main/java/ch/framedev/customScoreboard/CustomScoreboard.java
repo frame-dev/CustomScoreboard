@@ -11,6 +11,8 @@ public final class CustomScoreboard extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
         // Initialize the Singleton instance
         instance = this;
 
@@ -20,7 +22,6 @@ public final class CustomScoreboard extends JavaPlugin {
         },120L);
 
         customSBManager = new CustomSBManager(this, new ScoreboardFileManager());
-        customSBManager.createScoreboard("custom_scoreboard");
         getServer().getPluginManager().registerEvents(customSBManager, this);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> customSBManager.setScoreboard(),240L, getConfig().getInt("scoreboard.updateInterval", 20) * 20L);
     }
