@@ -3,7 +3,8 @@
 **CustomScoreboard** is a powerful Bukkit/Spigot plugin that provides a fully customizable scoreboard system for Minecraft servers. Display dynamic, real-time data such as player stats, server info, and more — all in the sidebar.
 
 ---
-## Caution: This plugin is in **early development** and may contain bugs.
+
+## Caution: This plugin is in **early development** and may contain bugs
 
 ---
 
@@ -30,6 +31,7 @@
 Edit the `config.yml` file to customize your scoreboard.  
 Here's an example:
 
+``` yaml
     scoreboard:
       displayName: "&6Scoreboard"
       updateInterval: 20
@@ -87,6 +89,7 @@ Here's an example:
     formats:
       date: "yyyy-MM-dd"
       time: "HH:mm:ss"
+```
 
 ---
 
@@ -110,9 +113,8 @@ Here's an example:
 | `%version%`        | Server version                      |
 | `%player_version%` | Player's client version (e.g., 1.21.4) |
 | `%tps%`            | Server's TPS (Ticks Per Second)     |
-| `%exp%`            | Player's current experience points  |
+| `%exp%` | Player's current experience points to next level in decimal like 0.95 from 1.0 (1.0 means level up)|
 | `%time_as_ticks%`   | Worlds Time as Ticks                |
-
 
 ---
 
@@ -127,7 +129,9 @@ Here's an example:
 
 Use the following command to compile the plugin:
 
-    mvn clean package
+``` shell
+mvn clean package
+```
 
 The compiled `.jar` will be located in the `target/` directory.
 

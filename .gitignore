@@ -21,3 +21,4 @@ dependency-reduced-pom.xml
 *.iml
 /actions-runner/
 runActionRunner.sh
+/out/
