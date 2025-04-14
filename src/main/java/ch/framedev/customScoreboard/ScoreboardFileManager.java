@@ -12,7 +12,6 @@ package ch.framedev.customScoreboard;
  */
 
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class ScoreboardFileManager {
         }
     }
 
-    public void setScoreboard(String name, @NotNull Map<String, Object> objectives) {
+    public void setScoreboard(String name, Map<String, Object> objectives) {
         scoreboardConfig.set(name, objectives);
         try {
             scoreboardConfig.save(scoreboardFile);
