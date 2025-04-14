@@ -1,0 +1,53 @@
+formats:
+  "date": "yyyy-MM-dd"
+  "time": "HH:mm:ss"
+  "money": ".2f"
+
+scoreboard:
+  update-interval: 5 # Seconds
+  displayName: "&6&lScoreboard"
+  "0":
+    name: "&a&lPlayer"
+    value: "%player%"
+  "1":
+    name: "&a&lPing"
+    value: "%ping%"
+  "2":
+    name: "&a&lWorld"
+    value: "%world%"
+  "3":
+    name: "&a&lCoordinates"
+    value: "%coordinates%"
+  "4":
+    name: "&a&lHealth"
+    value: "%health%"
+  "5":
+    name: "&a&lFood"
+    value: "%food%"
+  "6":
+    name: "&a&lLevel"
+    value: "%level%"
+  "7":
+    name: "&a&lExp"
+    value: "%exp%"
+  "8":
+    name: "&a&lMoney"
+    value: "%money%"
+  "9":
+    name: "&a&lTime"
+    value: "%time%"
+  "10":
+    name: "&a&lServerName"
+    value: "%server_name%"
+  "11":
+    name: "&a&lTPS"
+    value: "%tps%"
+  "12":
+    name: "&a&lVersion"
+    value: "%version%"
+  "13":
+    name: "&a&lMax Players"
+    value: "%max_players%"
+  "14":
+    name: "&a&lOnline Players"
+    value: "%online%"

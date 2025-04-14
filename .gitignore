@@ -1,0 +1,23 @@
+# Project exclude paths
+/classes/
+/.vscode/
+/.settings/
+/.idea/
+/target/
+.classpath
+.project
+.idea
+/jars/
+/.idea
+**/.DS_Store
+EssentialsMini.iml
+.DS_Store
+/.DS_Store
+build_deploy.sh
+EssentialsMini.jar
+*.jar
+write.sh
+dependency-reduced-pom.xml
+*.iml
+/actions-runner/
+runActionRunner.sh
