@@ -22,6 +22,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.WeakHashMap;
+import java.util.Collections;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class CustomSBManager implements Listener {
 
@@ -30,6 +33,7 @@ public class CustomSBManager implements Listener {
     private Objective objective;
 
     private int onlinePlayers = 0;
+    private Map<Player, Double> balanceCache = Collections.synchronizedMap(new WeakHashMap<>());
 
     private BukkitTask task;
     private BukkitTask joinTask;
@@ -259,11 +263,32 @@ public class CustomSBManager implements Listener {
                     if (plugin.getVaultManager() != null) {
                         try {
                             VaultManager vaultManager = plugin.getVaultManager();
-                            double balance = vaultManager.getEconomy().getBalance(player);
-                            // Get the player's balance
-                            replacements.put(regex, vaultManager.getEconomy().format(balance));
+                            
+                            // Get the cached balance or use a default value
+                            double cachedBalance = balanceCache.getOrDefault(player, 0.0);
+                            replacements.put(regex, vaultManager.getEconomy().format(cachedBalance));
+                            
+                            // Update the balance asynchronously
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        double currentBalance = vaultManager.getEconomy().getBalance(player);
+                                        
+                                        // Thread-safe update of the cache using compute
+                                        balanceCache.compute(player, (key, oldValue) -> {
+                                            if (oldValue == null || !oldValue.equals(currentBalance)) {
+                                                return currentBalance;
+                                            }
+                                            return oldValue;
+                                        });
+                                    } catch (Exception e) {
+                                        plugin.getLogger().log(Level.WARNING, "Failed to get player balance from Vault asynchronously", e);
+                                    }
+                                }
+                            }.runTaskAsynchronously(plugin);
                         } catch (Exception e) {
-                            plugin.getLogger().log(Level.WARNING, "Failed to get player balance from Vault", e);
+                            plugin.getLogger().log(Level.WARNING, "Failed to initialize Vault balance retrieval", e);
                             replacements.put(regex, "Vault error");
                         }
                     } else {
