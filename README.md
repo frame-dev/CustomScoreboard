@@ -3,6 +3,9 @@
 **CustomScoreboard** is a powerful Bukkit/Spigot plugin that provides a fully customizable scoreboard system for Minecraft servers. Display dynamic, real-time data such as player stats, server info, and more — all in the sidebar.
 
 ---
+## Caution: This plugin is in **early development** and may contain bugs.
+
+---
 
 ## ✨ Features
 
