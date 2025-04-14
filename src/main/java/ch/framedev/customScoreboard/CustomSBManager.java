@@ -63,6 +63,9 @@ public class CustomSBManager implements Listener {
                 objective = scoreboard.registerNewObjective(name, Criteria.DUMMY, displayName);
             } else {
                 objective = scoreboard.getObjective(name);
+                for(String entry : scoreboard.getEntries()) {
+                    scoreboard.resetScores(entry);
+                }
             }
             
             if (objective == null) {
@@ -90,10 +93,11 @@ public class CustomSBManager implements Listener {
                     continue;
                 }
 
-                for(int i = 0; i < plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false).size(); i++) {
+                Set<String> scoreboardEntries = plugin.getConfig().getConfigurationSection("scoreboard").getKeys(true);
+                for(int i = 0; i <= scoreboardEntries.size(); i++) {
                     try {
-                        String scoreName = plugin.getConfig().getString("scoreboard." + i + ".name");
-                        String value = plugin.getConfig().getString("scoreboard." + i + ".value");
+                        String scoreName = plugin.getConfig().getString("scoreboard." + scoreboardEntries.toArray()[i] + ".name");
+                        String value = plugin.getConfig().getString("scoreboard." + scoreboardEntries.toArray()[i] + ".value");
                         
                         if (scoreName != null && value != null) {
                             scoreName = scoreName.replace("&", "§");
@@ -113,7 +117,9 @@ public class CustomSBManager implements Listener {
                                 plugin.getLogger().warning("Invalid score value: " + i + " for entry: " + fullEntry);
                             }
                         }
-                    } catch (Exception ignored) {}
+                    } catch (Exception ex) {
+                        plugin.getLogger().log(Level.SEVERE, "Error creating scoreboard: " + name, ex);
+                    }
                 
                 // for (String keys : plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false)) {
                 //     try {
