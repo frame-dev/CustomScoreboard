@@ -8,6 +8,8 @@
 - Support for displaying player client version in scoreboard
 - Improved error handling for protocol version detection
 - Added new placeholders: `%player_version%`, `%time_as_ticks%`, `%player_world_time%`
+- Added new command: `/customscoreboard reload` to reload the plugin configuration
+- Only 1.21.4 Server will run otherwise the plugin will be disabled
 
 ### Fixed
 
