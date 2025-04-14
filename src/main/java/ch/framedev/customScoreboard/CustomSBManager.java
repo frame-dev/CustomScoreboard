@@ -93,8 +93,8 @@ public class CustomSBManager implements Listener {
                     continue;
                 }
 
-                Set<String> scoreboardEntries = plugin.getConfig().getConfigurationSection("scoreboard").getKeys(true);
-                for(int i = 0; i <= scoreboardEntries.size(); i++) {
+                Set<String> scoreboardEntries = plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false);
+                for(int i = 0; i < scoreboardEntries.size(); i++) {
                     try {
                         String scoreName = plugin.getConfig().getString("scoreboard." + scoreboardEntries.toArray()[i] + ".name");
                         String value = plugin.getConfig().getString("scoreboard." + scoreboardEntries.toArray()[i] + ".value");

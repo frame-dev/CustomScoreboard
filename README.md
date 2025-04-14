@@ -49,63 +49,41 @@ Edit the `config.yml` file to customize your scoreboard.
 Here's an example:
 
 ``` yaml
-    scoreboard:
-      displayName: "&6Scoreboard"
-      updateInterval: 20
-      1:
-        name: "&ePlayer"
-        value: "&7%player%"
-      2:
-        name: "&eWorld"
-        value: "&7%world%"
-      3:
-        name: "&eTime"
-        value: "&7%time%"
-      4:
-        name: "&eDate"
-        value: "&7%date%"
-      5:
-        name: "&eIP"
-        value: "&7%ip%"
-      6:
-        name: "&eVersion"
-        value: "&7%version%"
-      7:
-        name: "&eYour Version"
-        value: "&7%player_version%"
-      8:
-        name: "&eOnline"
-        value: "&7%online%/%max_players%"
-      9:
-        name: "&eServer"
-        value: "&7%server_name%"
-      10:
-        name: "&eMoney"
-        value: "&7%money%"
-      11:
-        name: "&ePing"
-        value: "&7%ping%"
-      12:
-        name: "&eLocation"
-        value: "&7%coordinates%"
-      13:
-        name: "&eHealth"
-        value: "&7%health%"
-      14:
-        name: "&eFood"
-        value: "&7%food%"
-      15:
-        name: "&eLevel"
-        value: "&7%level%"
-      16:
-        name: "&eTPS"
-        value: "&7%tps%"
-      17:
-        name: "&eExperience"
-        value: "&7%exp%"
-    formats:
-      date: "yyyy-MM-dd"
-      time: "HH:mm:ss"
+scoreboard:
+  "player":
+    name: "&a&lPlayer&r"
+    value: "%player%"
+  "ping":
+    name: "&a&lPing&r"
+    value: "%ping%"
+  "world":
+    name: "&a&lWorld&r"
+    value: "%world%"
+  "coordinates":
+    name: "&a&lCoordinates&r"
+    value: "%coordinates%"
+  "level":
+    name: "&a&lLevel&r"
+    value: "%level%"
+  "player-time":
+    name: "&a&lPlayer Time&r"
+    value: "%player_world_time%"
+  "money":
+    name: "&a&lMoney&r"
+    value: "%money%"
+  "server-name":
+    name: "&a&lServerName&r"
+    value: "&6Your Server Name"
+  "tps":
+    name: "&a&lTPS&r"
+    value: "%tps%"
+  "player-version":
+    name: "&a&lPlayer Version&r"
+    value: "%player_version%"
+  "online-players":
+    name: "&a&lOnline Players&r"
+    value: "%online% / %max_players%"
+
 ```
 
 ---
