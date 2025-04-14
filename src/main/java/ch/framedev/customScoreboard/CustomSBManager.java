@@ -11,6 +11,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
+import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.manager.player.PlayerManager;
+import com.github.retrooper.packetevents.protocol.player.User;
 import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -178,40 +181,157 @@ public class CustomSBManager implements Listener {
                 } else if (regex == Regex.VERSION)
                     replacements.put(regex, Bukkit.getVersion());
                 else if (regex == Regex.PLAYER_VERSION) {
-                    // Use a simpler approach for player version
+                    // Use PacketEvents to get player version
                     String playerVersion = "Unknown";
                     
-                    // Try to get server version to determine which approach to use
-                    String serverVersion = Bukkit.getVersion();
-                    
-                    if (serverVersion.contains("1.20") || serverVersion.contains("1.21")) {
-                        playerVersion = "1.20+";
-                    } else if (serverVersion.contains("1.19")) {
-                        playerVersion = "1.19.x";
-                    } else if (serverVersion.contains("1.18")) {
-                        playerVersion = "1.18.x";
-                    } else if (serverVersion.contains("1.17")) {
-                        playerVersion = "1.17.x";
-                    } else if (serverVersion.contains("1.16")) {
-                        playerVersion = "1.16.x";
-                    } else if (serverVersion.contains("1.15")) {
-                        playerVersion = "1.15.x";
-                    } else if (serverVersion.contains("1.14")) {
-                        playerVersion = "1.14.x";
-                    } else if (serverVersion.contains("1.13")) {
-                        playerVersion = "1.13.x";
-                    } else if (serverVersion.contains("1.12")) {
-                        playerVersion = "1.12.x";
-                    } else if (serverVersion.contains("1.11")) {
-                        playerVersion = "1.11.x";
-                    } else if (serverVersion.contains("1.10")) {
-                        playerVersion = "1.10.x";
-                    } else if (serverVersion.contains("1.9")) {
-                        playerVersion = "1.9.x";
-                    } else if (serverVersion.contains("1.8")) {
-                        playerVersion = "1.8.x";
-                    } else {
-                        playerVersion = "Unknown";
+                    try {
+                        int protocolVersion = 0;
+                        PlayerManager playerManager = PacketEvents.getAPI().getPlayerManager();
+                        User user = playerManager.getUser(player);
+                        protocolVersion = user.getClientVersion().getProtocolVersion();
+                        
+                        // Map protocol version to Minecraft version
+                        if (protocolVersion >= 765) {
+                            playerVersion = "1.21.x";
+                        } else if (protocolVersion >= 762) {
+                            playerVersion = "1.20.4";
+                        } else if (protocolVersion >= 761) {
+                            playerVersion = "1.20.2";
+                        } else if (protocolVersion >= 760) {
+                            playerVersion = "1.20.1";
+                        } else if (protocolVersion >= 759) {
+                            playerVersion = "1.20";
+                        } else if (protocolVersion >= 758) {
+                            playerVersion = "1.19.4";
+                        } else if (protocolVersion >= 757) {
+                            playerVersion = "1.19.3";
+                        } else if (protocolVersion >= 756) {
+                            playerVersion = "1.19.2";
+                        } else if (protocolVersion >= 755) {
+                            playerVersion = "1.19.1";
+                        } else if (protocolVersion >= 754) {
+                            playerVersion = "1.19";
+                        } else if (protocolVersion >= 753) {
+                            playerVersion = "1.18.2";
+                        } else if (protocolVersion >= 752) {
+                            playerVersion = "1.18.1";
+                        } else if (protocolVersion >= 751) {
+                            playerVersion = "1.18";
+                        } else if (protocolVersion >= 750) {
+                            playerVersion = "1.17.1";
+                        } else if (protocolVersion >= 749) {
+                            playerVersion = "1.17";
+                        } else if (protocolVersion >= 748) {
+                            playerVersion = "1.16.5";
+                        } else if (protocolVersion >= 747) {
+                            playerVersion = "1.16.4";
+                        } else if (protocolVersion >= 746) {
+                            playerVersion = "1.16.3";
+                        } else if (protocolVersion >= 745) {
+                            playerVersion = "1.16.2";
+                        } else if (protocolVersion >= 736) {
+                            playerVersion = "1.16.1";
+                        } else if (protocolVersion >= 735) {
+                            playerVersion = "1.16";
+                        } else if (protocolVersion >= 578) {
+                            playerVersion = "1.15.2";
+                        } else if (protocolVersion >= 575) {
+                            playerVersion = "1.15.1";
+                        } else if (protocolVersion >= 573) {
+                            playerVersion = "1.15";
+                        } else if (protocolVersion >= 498) {
+                            playerVersion = "1.14.4";
+                        } else if (protocolVersion >= 490) {
+                            playerVersion = "1.14.3";
+                        } else if (protocolVersion >= 485) {
+                            playerVersion = "1.14.2";
+                        } else if (protocolVersion >= 480) {
+                            playerVersion = "1.14.1";
+                        } else if (protocolVersion >= 477) {
+                            playerVersion = "1.14";
+                        } else if (protocolVersion >= 404) {
+                            playerVersion = "1.13.2";
+                        } else if (protocolVersion >= 401) {
+                            playerVersion = "1.13.1";
+                        } else if (protocolVersion >= 393) {
+                            playerVersion = "1.13";
+                        } else if (protocolVersion >= 340) {
+                            playerVersion = "1.12.2";
+                        } else if (protocolVersion >= 338) {
+                            playerVersion = "1.12.1";
+                        } else if (protocolVersion >= 335) {
+                            playerVersion = "1.12";
+                        } else if (protocolVersion >= 316) {
+                            playerVersion = "1.11.2";
+                        } else if (protocolVersion >= 315) {
+                            playerVersion = "1.11.1";
+                        } else if (protocolVersion >= 210) {
+                            playerVersion = "1.11";
+                        } else if (protocolVersion >= 110) {
+                            playerVersion = "1.10.2";
+                        } else if (protocolVersion >= 109) {
+                            playerVersion = "1.10.1";
+                        } else if (protocolVersion >= 107) {
+                            playerVersion = "1.10";
+                        } else if (protocolVersion >= 47) {
+                            playerVersion = "1.9.4";
+                        } else if (protocolVersion >= 45) {
+                            playerVersion = "1.9.2";
+                        } else if (protocolVersion >= 44) {
+                            playerVersion = "1.9.1";
+                        } else if (protocolVersion >= 43) {
+                            playerVersion = "1.9";
+                        } else if (protocolVersion >= 42) {
+                            playerVersion = "1.8.9";
+                        } else if (protocolVersion >= 41) {
+                            playerVersion = "1.8.8";
+                        } else if (protocolVersion >= 40) {
+                            playerVersion = "1.8.7";
+                        } else if (protocolVersion >= 39) {
+                            playerVersion = "1.8.6";
+                        } else if (protocolVersion >= 38) {
+                            playerVersion = "1.8.5";
+                        } else if (protocolVersion >= 37) {
+                            playerVersion = "1.8.4";
+                        } else if (protocolVersion >= 36) {
+                            playerVersion = "1.8.3";
+                        } else if (protocolVersion >= 35) {
+                            playerVersion = "1.8.2";
+                        } else if (protocolVersion >= 34) {
+                            playerVersion = "1.8.1";
+                        } else if (protocolVersion >= 33) {
+                            playerVersion = "1.8";
+                        } else if (protocolVersion >= 32) {
+                            playerVersion = "1.7.10";
+                        } else if (protocolVersion >= 31) {
+                            playerVersion = "1.7.9";
+                        } else if (protocolVersion >= 30) {
+                            playerVersion = "1.7.8";
+                        } else if (protocolVersion >= 29) {
+                            playerVersion = "1.7.7";
+                        } else if (protocolVersion >= 28) {
+                            playerVersion = "1.7.6";
+                        } else if (protocolVersion >= 27) {
+                            playerVersion = "1.7.5";
+                        } else if (protocolVersion >= 26) {
+                            playerVersion = "1.7.4";
+                        } else if (protocolVersion >= 25) {
+                            playerVersion = "1.7.3";
+                        } else if (protocolVersion >= 24) {
+                            playerVersion = "1.7.2";
+                        } else if (protocolVersion >= 23) {
+                            playerVersion = "1.7.1";
+                        } else if (protocolVersion >= 22) {
+                            playerVersion = "1.7";
+                        } else if (protocolVersion >= 20) {
+                            playerVersion = "1.6.4";
+                        } else if (protocolVersion >= 19) {
+                            playerVersion = "1.6.2";
+                        } else {
+                            playerVersion = "1.6.1 or older";
+                        }
+                    } catch (Exception e) {
+                        plugin.getLogger().log(Level.WARNING, "Error getting player version from PacketEvents", e);
                     }
                     
                     replacements.put(regex, playerVersion);

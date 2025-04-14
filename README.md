@@ -8,6 +8,10 @@
 
 ---
 
+## Required Depdencencies
+
+- [PacketEvents](https://www.spigotmc.org/resources/packetevents-api.80279/)
+
 ## ✨ Features
 
 - 🎯 Dynamic placeholders for player and server data
