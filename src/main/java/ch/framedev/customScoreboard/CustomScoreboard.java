@@ -7,33 +7,30 @@ public final class CustomScoreboard extends JavaPlugin {
 
     private static CustomScoreboard instance;
     private VaultManager vaultManager;
+    private CustomSBManager customSBManager;
 
     @Override
     public void onEnable() {
+        // Initialize the Singleton instance
         instance = this;
-        // Plugin startup logic
 
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable() {
-            @Override
-            public void run() {
-                if(getServer().getPluginManager().getPlugin("Vault") != null)
-                    vaultManager = new VaultManager();
-            }
+        Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> {
+            if(getServer().getPluginManager().getPlugin("Vault") != null)
+                vaultManager = new VaultManager();
         },120L);
-        CustomSBManager customSBManager = new CustomSBManager(this, new ScoreboardFileManager());
+
+        customSBManager = new CustomSBManager(this, new ScoreboardFileManager());
         customSBManager.createScoreboard("custom_scoreboard");
         getServer().getPluginManager().registerEvents(customSBManager, this);
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
-            @Override
-            public void run() {
-                customSBManager.setScoreboard();
-            }
-        },240L, getConfig().getInt("scoreboard.updateInterval", 20) * 20L);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> customSBManager.setScoreboard(),240L, getConfig().getInt("scoreboard.updateInterval", 20) * 20L);
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        if(customSBManager != null && customSBManager.getTask() != null) {
+            customSBManager.getTask().cancel();
+            customSBManager.setTask(null);
+        }
     }
 
     public VaultManager getVaultManager() {

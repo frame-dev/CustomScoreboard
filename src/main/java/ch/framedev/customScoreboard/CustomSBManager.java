@@ -7,14 +7,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.Nullable;
 
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class CustomSBManager implements Listener {
 
@@ -22,9 +28,21 @@ public class CustomSBManager implements Listener {
     private final CustomScoreboard plugin;
     private Scoreboard scoreboard;
 
+    private int onlinePlayers = 0;
+
+    private BukkitTask task;
+
     public CustomSBManager(CustomScoreboard plugin, ScoreboardFileManager fileManager) {
         this.plugin = plugin;
         this.fileManager = fileManager;
+    }
+
+    public BukkitTask getTask() {
+        return task;
+    }
+
+    public void setTask(BukkitTask task) {
+        this.task = task;
     }
 
     public void createScoreboard(String name) {
@@ -73,40 +91,45 @@ public class CustomSBManager implements Listener {
                 java.text.SimpleDateFormat timeFormatter = new java.text.SimpleDateFormat(timeFormat);
                 java.util.Date time = new java.util.Date();
                 replacements.put(regex, time);
-            }
-            else if (regex == Regex.DATE) {
+            } else if (regex == Regex.DATE) {
                 String dateFormat = plugin.getConfig().getString("formats.date", "yyyy-MM-dd");
                 java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat(dateFormat);
                 java.util.Date date = new java.util.Date();
                 replacements.put(regex, dateFormatter.format(date));
-            }
-            else if (regex == Regex.IP) {
+            } else if (regex == Regex.IP) {
                 if (player.getAddress() == null) continue;
-                replacements.put(regex, player.getAddress().getHostName());
-            }
-            else if (regex == Regex.VERSION)
+                InetSocketAddress inetAddress = player.getAddress();
+                if(inetAddress != null) {
+                    replacements.put(regex, inetAddress.getHostName());
+                } else {
+                    replacements.put(regex, "Unknown");
+                }
+            } else if (regex == Regex.VERSION)
                 replacements.put(regex, Bukkit.getVersion());
-            else if (regex == Regex.ONLINE)
-                replacements.put(regex, Bukkit.getOnlinePlayers().size());
-            else if (regex == Regex.MAX_PLAYERS)
+            else if (regex == Regex.ONLINE) {
+                if (onlinePlayers != Bukkit.getOnlinePlayers().size()) {
+                    onlinePlayers = Bukkit.getOnlinePlayers().size();
+                }
+                replacements.put(regex, onlinePlayers);
+            } else if (regex == Regex.MAX_PLAYERS)
                 replacements.put(regex, Bukkit.getMaxPlayers());
             else if (regex == Regex.SERVER_NAME)
                 replacements.put(regex, Bukkit.getServer().getName());
             else if (regex == Regex.MONEY)
-                if(plugin.getVaultManager() != null) {
+                if (plugin.getVaultManager() != null) {
                     replacements.put(regex, plugin.getVaultManager().getEconomy().format(plugin.getVaultManager().getEconomy().getBalance(player)));
                 } else {
                     replacements.put(regex, "Vault not found");
                 }
             else if (regex == Regex.PING)
                 replacements.put(regex, player.getPing() + "ms");
-            else if(regex == Regex.COORDINATES)
+            else if (regex == Regex.COORDINATES)
                 replacements.put(regex, player.getLocation().getBlockX() + " " + player.getLocation().getBlockY() + " " + player.getLocation().getBlockZ());
-            else if(regex == Regex.HEALTH)
+            else if (regex == Regex.HEALTH)
                 replacements.put(regex, player.getHealth());
-            else if(regex == Regex.FOOD)
+            else if (regex == Regex.FOOD)
                 replacements.put(regex, player.getFoodLevel());
-            else if(regex == Regex.LEVEL)
+            else if (regex == Regex.LEVEL)
                 replacements.put(regex, player.getLevel());
         }
         return replacements;
@@ -115,7 +138,7 @@ public class CustomSBManager implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+        task = Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
             @Override
             public void run() {
                 player.setScoreboard(scoreboard);
