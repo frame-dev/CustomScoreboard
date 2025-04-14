@@ -3,9 +3,14 @@ formats:
   "time": "HH:mm:ss"
   "money": ".2f"
 
-scoreboard:
-  updateInterval: 5 # Seconds
+scoreboard-settings:
+  updateInterval: 10 # Seconds
   displayName: "&6&lScoreboard"
+
+vault:
+  symbole: '$'
+
+scoreboard:
   "0":
     name: "&a&lPlayer&r"
     value: "%player%"

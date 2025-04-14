@@ -111,6 +111,7 @@ scoreboard:
 | `%exp%` | Player's current experience points to next level in decimal like 0.95 from 1.0 (1.0 means level up)|
 | `%time_as_ticks%`   | Worlds Time as Ticks               |
 | `%player_world_time%` | Player's current World Time      |
+| `%currency%` | Vault's currency Symbole set in config.yml      |
 
 ---
 

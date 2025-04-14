@@ -1,10 +1,11 @@
 {
-  "latest": "1.2-SNAPSHOT",
-  "download_url": "https://framedev.ch/downloads/CustomScoreboard-1.2-SNAPSHOT.jar",
+  "latest": "1.3-SNAPSHOT",
+  "download_url": "https://framedev.ch/downloads/CustomScoreboard-1.3-SNAPSHOT.jar",
   "versions": [
     "1.0-SNAPSHOT",
     "1.1-SNAPSHOT",
-    "1.2-SNAPSHOT"
+    "1.2-SNAPSHOT",
+    "1.3-SNAPSHOT"
   ],
   "versionDescriptions": [
       {
@@ -28,6 +29,12 @@
           "Added dependency 'PacketEvents' for packet listening.",
           "Added support for PacketEvents",
           "Updater has been rewritten and is now more reliable."
+        ]
+      },
+      {
+        "version": "1.3-SNAPSHOT",
+        "description": [
+          "Added new features and improved the code."
         ]
       }
   ]

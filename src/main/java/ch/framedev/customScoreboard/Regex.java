@@ -1,6 +1,7 @@
 package ch.framedev.customScoreboard;
 
 import java.util.Map;
+import java.util.regex.Matcher;
 
 /*
  * ch.framedev.customScoreboard
@@ -42,7 +43,9 @@ public enum Regex {
         if (text == null) return null;
         for (Map.Entry<Regex, Object> entry : replacements.entrySet()) {
             if (entry.getValue() != null) {
-                text = text.replaceAll(entry.getKey().getRegex(), entry.getValue().toString());
+                // Use Matcher.quoteReplacement to escape special characters in the replacement
+                String replacement = Matcher.quoteReplacement(entry.getValue().toString());
+                text = text.replaceAll(entry.getKey().getRegex(), replacement);
             }
         }
         return text;
