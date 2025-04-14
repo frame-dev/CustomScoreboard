@@ -16,7 +16,7 @@ public enum Regex {
     TIME("%time%"), DATE("%date%"), IP("%ip%"), VERSION("%version%"),
     ONLINE("%online%"), MAX_PLAYERS("%max_players%"),
     MONEY("%money%"), PING("%ping%"), COORDINATES("%coordinates%"), LEVEL("%level%"),
-    TPS("%tps%"), EXP("%exp%"), TIME_AS_TICKS("%time_as_ticks%"),
+    TPS("%tps%"), EXP("%exp%"), TIME_AS_TICKS("%time_as_ticks%"), PLAYER_WORLD_TIME("%player_world_time%"),
     PLAYER_VERSION("%player_version%");
 
     private final String regex;

@@ -154,6 +154,16 @@ public class CustomSBManager implements Listener {
                     SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
                     Date time = new Date();
                     replacements.put(regex, timeFormatter.format(time));
+                } else if (regex == Regex.PLAYER_WORLD_TIME) {
+                    // Get player's world time
+                    long worldTime = player.getWorld().getTime();
+                    // Convert ticks to hours, minutes, seconds
+                    int hours = (int) ((worldTime / 1000 + 6) % 24);
+                    int minutes = (int) ((worldTime % 1000) / 1000 * 60);
+                    
+                    // Format according to config or default
+                    String formattedTime = String.format("%02d:%02d", hours, minutes);
+                    replacements.put(regex, formattedTime);
                 } else if (regex == Regex.DATE) {
                     String dateFormat = plugin.getConfig().getString("formats.date", "yyyy-MM-dd");
                     SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
@@ -164,7 +174,6 @@ public class CustomSBManager implements Listener {
                         replacements.put(regex, "Unknown");
                         continue;
                     }
-                    
                     InetSocketAddress inetAddress = player.getAddress();
                     if (inetAddress != null) {
                         replacements.put(regex, inetAddress.getHostName());
