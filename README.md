@@ -111,6 +111,7 @@ Here's an example:
 | `%player_version%` | Player's client version (e.g., 1.21.4) |
 | `%tps%`            | Server's TPS (Ticks Per Second)     |
 | `%exp%`            | Player's current experience points  |
+| %time_as_ticks%.   | Worlds Time as Ticks                |
 
 
 ---

@@ -171,6 +171,8 @@ public class CustomSBManager implements Listener {
                 replacements.put(regex, String.format("%.2f", Bukkit.getTPS()[0]));
             else if (regex == Regex.EXP)
                 replacements.put(regex, String.format("%.2f", player.getExp()));
+            else if (regex == Regex.TIME_AS_TICKS)
+                replacements.put(regex, player.getWorld().getTime());
         }
         return replacements;
     }
