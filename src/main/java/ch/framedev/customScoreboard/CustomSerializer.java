@@ -22,13 +22,11 @@ import java.util.Map;
 
 public class CustomSerializer implements ConfigurationSerializable {
 
-    private final Scoreboard scoreboard;
     private final Objective objective;
     private final String name;
 
     public CustomSerializer(String name, Scoreboard scoreboard, Objective objective) {
         this.name = name;
-        this.scoreboard = scoreboard;
         this.objective = objective;
     }
 

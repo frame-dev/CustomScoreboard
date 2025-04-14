@@ -100,7 +100,6 @@ Here's an example:
 | `%date%`           | Current server date                 |
 | `%online%`         | Online player count                 |
 | `%max_players%`    | Maximum number of players           |
-| `%server_name%`    | Server name                         |
 | `%money%`          | Player's balance (requires Vault)   |
 | `%ping%`           | Player's ping                       |
 | `%coordinates%`    | Player's XYZ coordinates            |
@@ -113,24 +112,6 @@ Here's an example:
 | `%tps%`            | Server's TPS (Ticks Per Second)     |
 | `%exp%`            | Player's current experience points  |
 
----
-
-## 🛠️ Commands
-
-| Command                  | Description                        |
-|--------------------------|------------------------------------|
-| /customscoreboard reload | Reloads the plugin configuration   |
-| /customscoreboard toggle | Toggles the scoreboard visibility  |
-
----
-
-## 🔐 Permissions
-
-| Permission                | Description                      |
-|---------------------------|----------------------------------|
-| customscoreboard.admin    | Allows access to admin commands  |
-| customscoreboard.reload   | Allows reloading the plugin      |
-| customscoreboard.toggle   | Allows toggling the scoreboard   |
 
 ---
 

@@ -151,8 +151,6 @@ public class CustomSBManager implements Listener {
                 replacements.put(regex, onlinePlayers);
             } else if (regex == Regex.MAX_PLAYERS)
                 replacements.put(regex, Bukkit.getMaxPlayers());
-            else if (regex == Regex.SERVER_NAME)
-                replacements.put(regex, Bukkit.getServer().getName());
             else if (regex == Regex.MONEY)
                 if (plugin.getVaultManager() != null) {
                     replacements.put(regex, plugin.getVaultManager().getEconomy().format(plugin.getVaultManager().getEconomy().getBalance(player)));

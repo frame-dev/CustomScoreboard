@@ -51,3 +51,6 @@ scoreboard:
   "14":
     name: "&a&lOnline Players&r"
     value: "%online%"
+
+# Update Settings
+autoDownload: false  # Set to true to automatically download and install updates

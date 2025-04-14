@@ -14,7 +14,7 @@ import java.util.Map;
 public enum Regex {
     PLAYER("%player%"), WORLD("%world%"), HEALTH("%health%"), FOOD("%food%"),
     TIME("%time%"), DATE("%date%"), IP("%ip%"), VERSION("%version%"),
-    ONLINE("%online%"), MAX_PLAYERS("%max_players%"), SERVER_NAME("%server_name%"),
+    ONLINE("%online%"), MAX_PLAYERS("%max_players%"),
     MONEY("%money%"), PING("%ping%"), COORDINATES("%coordinates%"), LEVEL("%level%"),
     TPS("%tps%"), EXP("%exp%"),
     PLAYER_VERSION("%player_version%");

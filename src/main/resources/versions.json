@@ -1,14 +1,17 @@
 {
   "latest": "1.0-SNAPSHOT",
+  "download_url": "https://framedev.ch/downloads/CustomScoreboard-1.0-SNAPSHOT.jar",
   "versions": [
     "1.0-SNAPSHOT"
   ],
-  "version-descriptions": {
-    "version": "1.0-SNAPSHOT",
-    "description": [
-      "Initial release of the project.",
-      "This version includes the basic structure and functionality.",
-      "No testing has been done yet."
-    ]
-  }
+  "versionDescriptions": [
+    {
+      "version": "1.0-SNAPSHOT",
+      "description": [
+        "Initial release of the project.",
+        "This version includes the basic structure and functionality.",
+        "No testing has been done yet."
+      ]
+    }
+  ]
 }

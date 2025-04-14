@@ -16,6 +16,10 @@ public final class CustomScoreboard extends JavaPlugin {
         // Initialize the Singleton instance
         instance = this;
 
+         // Check for updates
+         UpdateManager updateManager = new UpdateManager(this);
+         updateManager.checkForUpdates();
+
         Bukkit.getScheduler().runTaskLaterAsynchronously(this, () -> {
             if(getServer().getPluginManager().getPlugin("Vault") != null)
                 vaultManager = new VaultManager();
