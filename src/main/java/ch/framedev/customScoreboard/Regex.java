@@ -13,6 +13,8 @@ import java.util.EnumMap;
  * Please do not change anything without my consent!
  * =============================================
  * This Class was created at 14.04.2025 16:07
+ * 
+ * Updated to be more efficient and to use less memory
  */
 
 public enum Regex {

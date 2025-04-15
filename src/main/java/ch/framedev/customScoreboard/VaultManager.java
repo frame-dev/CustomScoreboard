@@ -21,7 +21,9 @@ public class VaultManager {
     private Economy economy;
 
     public VaultManager() {
-        setupEconomy();
+        if(!setupEconomy()) {
+            CustomScoreboard.getInstance().getLogger().severe("Failed to setup economy!");
+        }
     }
 
     private boolean setupEconomy() {
