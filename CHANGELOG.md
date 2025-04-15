@@ -1,5 +1,28 @@
 # 🎯 CustomScoreboard Changelog
 
+## 📦 [1.4-SNAPSHOT] - 2025-04-16
+
+### ✨ Added
+
+- Added support for placeholder entries in scoreboard (separator lines)
+- Implemented asynchronous balance retrieval for better performance
+- Added multiple example scoreboard configurations
+- Added support for custom placeholder styles in config
+
+### 🐛 Fixed
+
+- Fixed memory leak in player balance caching using WeakHashMap
+- Improved thread safety with synchronized collections
+- Fixed Files.copy method compatibility issue
+- Enhanced error handling for Vault integration
+
+### 🔄 Changed
+
+- Improved scoreboard entry formatting
+- Optimized placeholder detection and rendering
+- Enhanced configuration validation
+- Better resource file handling
+
 ## 📦 [1.3-SNAPSHOT] - 2025-04-15
 
 ### ✨ Added
