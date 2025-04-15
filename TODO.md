@@ -1,71 +1,95 @@
-# 🎯 CustomScoreboard - TODO List
+# 📋 CustomScoreboard TODO List
 
 ## 🚀 Planned Features
 
 ### High Priority
-- [ ] Add support for multiple scoreboard layouts that can be switched with commands
+- [ ] Add support for multiple scoreboard layouts (different for different worlds)
 - [ ] Implement permission-based scoreboard visibility
-- [ ] Add support for animated scoreboard titles
-- [ ] Create a GUI configuration editor for easier setup
-- [ ] Add support for custom fonts in scoreboard text
+- [ ] Add support for custom animations in scoreboard entries
+- [ ] Create a web-based configuration editor
+- [ ] Add support for custom fonts in scoreboard entries
 
 ### Medium Priority
 - [ ] Implement scoreboard templates that can be saved and loaded
-- [ ] Add support for conditional placeholders (show different values based on conditions)
-- [ ] Create a statistics tracking system for player activity
-- [ ] Add support for custom emojis/unicode characters
-- [ ] Implement a scoreboard preview system for administrators
+- [ ] Add support for conditional scoreboard entries (show/hide based on player state)
+- [ ] Create a statistics tracking system for scoreboard usage
+- [ ] Add support for custom sounds when scoreboard updates
+- [ ] Implement a plugin API for developers to extend functionality
 
 ### Low Priority
-- [ ] Add support for external API integrations (PlaceholderAPI, etc.)
-- [ ] Create a web-based configuration interface
-- [ ] Implement scoreboard themes with preset styles
+- [ ] Add support for custom emojis in scoreboard entries
+- [ ] Create a scoreboard preview system in-game
+- [ ] Implement scoreboard export/import functionality
 - [ ] Add support for custom animations in scoreboard entries
-- [ ] Create a scoreboard analytics system
+- [ ] Create a scoreboard backup system
 
 ## 🔧 Improvements
 
 ### Performance
-- [ ] Optimize scoreboard update mechanism for large servers
+- [ ] Optimize scoreboard update frequency based on server load
 - [ ] Implement caching for frequently accessed data
-- [ ] Reduce memory usage in long-running operations
+- [ ] Reduce memory usage in player balance tracking
 - [ ] Optimize regex replacement system for better performance
 
-### Code Quality
-- [ ] Refactor the scoreboard creation logic for better maintainability
-- [ ] Implement comprehensive unit tests
-- [ ] Improve error handling throughout the codebase
-- [ ] Add detailed logging for debugging purposes
-
 ### User Experience
-- [ ] Create a more intuitive configuration system
-- [ ] Improve documentation with examples and tutorials
-- [ ] Add more detailed error messages for common issues
-- [ ] Create a troubleshooting guide for server administrators
+- [ ] Improve error messages for better troubleshooting
+- [ ] Add more detailed documentation for all features
+- [ ] Create a comprehensive configuration guide
+- [ ] Add more example configurations for different use cases
+
+### Code Quality
+- [ ] Refactor codebase to follow best practices
+- [ ] Improve test coverage
+- [ ] Implement better logging system
+- [ ] Create a more modular architecture
 
 ## 🐛 Bug Fixes
 
 ### Known Issues
-- [ ] Fix potential memory leak in scoreboard task management
-- [ ] Address occasional flickering in scoreboard updates
-- [ ] Resolve issues with special characters in player names
-- [ ] Fix compatibility issues with certain server versions
+- [ ] Fix potential race condition in player join event handling
+- [ ] Address memory leak in long-running servers
+- [ ] Fix compatibility issues with certain Vault implementations
+- [ ] Resolve placeholder replacement edge cases
 
-## 📋 Documentation
+### Compatibility
+- [ ] Ensure compatibility with future Minecraft versions
+- [ ] Improve compatibility with other scoreboard plugins
+- [ ] Test with different server implementations (Paper, Spigot, etc.)
+- [ ] Verify compatibility with different Vault economy plugins
 
-### Planned Documentation
+## 📚 Documentation
+
+### User Documentation
 - [ ] Create a comprehensive user guide
-- [ ] Add API documentation for developers
-- [ ] Create video tutorials for common setup tasks
-- [ ] Develop a troubleshooting flowchart
+- [ ] Add more examples for common use cases
+- [ ] Create video tutorials for setup and configuration
+- [ ] Improve inline documentation in configuration files
 
-## 🔄 Future Considerations
+### Developer Documentation
+- [ ] Create API documentation for plugin developers
+- [ ] Document internal architecture
+- [ ] Create contribution guidelines
+- [ ] Add code comments for complex logic
 
-### Long-term Goals
-- [ ] Support for newer Minecraft versions as they are released
-- [ ] Integration with popular server management platforms
-- [ ] Development of a premium version with advanced features
-- [ ] Creation of a plugin ecosystem with extensions
+## 🔄 Version Planning
+
+### Version 1.5
+- [ ] Implement multiple scoreboard layouts
+- [ ] Add permission-based visibility
+- [ ] Improve performance optimizations
+- [ ] Fix known bugs
+
+### Version 1.6
+- [ ] Add support for custom animations
+- [ ] Implement conditional scoreboard entries
+- [ ] Create plugin API
+- [ ] Improve documentation
+
+### Version 2.0
+- [ ] Complete rewrite with improved architecture
+- [ ] Implement all planned features
+- [ ] Create web-based configuration editor
+- [ ] Add comprehensive statistics tracking
 
 ---
 
