@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLongArray;
 /**
  * Efficient implementation of TPS (Ticks Per Second) calculation
  * Uses atomic operations for thread safety and optimized algorithms
+ * Updated by FrameDev for the CustomScoreboard plugin
  */
 public class Lag implements Runnable {
     // Size of the circular buffer for tick times

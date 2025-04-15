@@ -28,16 +28,20 @@ public class ConfigUtils {
      */
     public void createDefaultConfig() {
         FileConfiguration config = plugin.getConfig();
+
+        // Vault symbol 
         if (!config.contains("vault.symbole")) {
             config.set("vault.symbole", "$");
             plugin.saveConfig();
         }
 
+        // Update interval
         if (!config.contains("scoreboard-settings.updateInterval")) {
             config.set("scoreboard-settings.updateInterval", 20);
             plugin.saveConfig();
         }
 
+        // Display name
         if (!config.contains("scoreboard-settings.displayName")) {
             config.set("scoreboard-settings.displayName", "&6&lScoreboard");
             plugin.saveConfig();

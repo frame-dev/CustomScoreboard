@@ -43,14 +43,27 @@ public class CustomSBManager implements Listener {
         this.fileManager = fileManager;
     }
 
+    /**
+     * Get the task
+     * @return BukkitTask
+     */
     public BukkitTask getTask() {
         return task;
     }
 
+    /**
+     * Set the task
+     * @param task BukkitTask
+     */
     public void setTask(BukkitTask task) {
         this.task = task;
     }
 
+    /**
+     * Create the scoreboard for a player
+     * @param name Name of the scoreboard
+     * @param scoreboard Scoreboard
+     */
     public void createScoreboard(String name, Scoreboard scoreboard) {
         if (name == null || name.isEmpty()) {
             plugin.getLogger().warning("Cannot create scoreboard with null or empty name");
