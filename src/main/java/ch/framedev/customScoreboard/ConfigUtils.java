@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
  * This Class was created by FrameDev
  * Please do not change anything without my consent!
  * =============================================
+ * This Class was created for the CustomScoreboard plugin
  */
 public class ConfigUtils {
 
