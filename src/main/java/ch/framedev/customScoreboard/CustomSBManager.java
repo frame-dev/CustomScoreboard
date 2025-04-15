@@ -1,6 +1,8 @@
 package ch.framedev.customScoreboard;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +16,11 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.player.PlayerManager;
 import com.github.retrooper.packetevents.protocol.player.User;
+
+import java.io.File;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +38,9 @@ public class CustomSBManager implements Listener {
     private final CustomScoreboard plugin;
     private Objective objective;
 
+    private File file;
+    private FileConfiguration config;
+
     private int onlinePlayers = 0;
     private Map<Player, Double> balanceCache = Collections.synchronizedMap(new WeakHashMap<>());
 
@@ -41,6 +50,25 @@ public class CustomSBManager implements Listener {
     public CustomSBManager(CustomScoreboard plugin, ScoreboardFileManager fileManager) {
         this.plugin = plugin;
         this.fileManager = fileManager;
+        this.file = new File(plugin.getDataFolder(), "scoreboard.yml");
+        if (!file.exists()) {
+            try {
+                Files.copy(plugin.getResource("scoreboard.yml"), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                config = YamlConfiguration.loadConfiguration(file);
+                config.save(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        this.config = YamlConfiguration.loadConfiguration(file);
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public FileConfiguration getConfig() {
+        return config;
     }
 
     /**
@@ -116,21 +144,21 @@ public class CustomSBManager implements Listener {
                 }
 
                 // Check if the scoreboard configuration is null and log a warning if it is
-                if (plugin.getConfig().getConfigurationSection("scoreboard") == null) {
+                if (config.getConfigurationSection("scoreboard") == null) {
                     plugin.getLogger().warning("No scoreboard configuration found in config.yml");
                     continue;
                 }
 
                 // Get all scoreboard entries
-                Set<String> scoreboardEntries = plugin.getConfig().getConfigurationSection("scoreboard").getKeys(false);
+                Set<String> scoreboardEntries = config.getConfigurationSection("scoreboard").getKeys(false);
 
                 // Loop through all scoreboard entries
                 for (int i = 0; i < scoreboardEntries.size(); i++) {
                     try {
                         // Get the score name and value
-                        String scoreName = plugin.getConfig()
+                        String scoreName = config
                                 .getString("scoreboard." + scoreboardEntries.toArray()[i] + ".name");
-                        String value = plugin.getConfig()
+                        String value = config
                                 .getString("scoreboard." + scoreboardEntries.toArray()[i] + ".value");
                         
                         // Check if this is a placeholder entry

@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -211,6 +212,12 @@ public final class CustomScoreboard extends JavaPlugin {
             } else if (args[0].equalsIgnoreCase("reload")) {
                 // Reload the config
                 reloadConfig();
+                // Reload the custom scoreboard manager
+                try {
+                    customSBManager.getConfig().load(customSBManager.getFile().getAbsoluteFile());
+                } catch (IOException | InvalidConfigurationException e) {
+                    e.printStackTrace();
+                }
                 // Send a message to the sender
                 sender.sendMessage("CustomScoreboard reloaded!");
             }

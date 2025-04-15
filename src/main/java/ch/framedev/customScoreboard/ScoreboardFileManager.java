@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class ScoreboardFileManager {
 
-    private final File scoreboardFile = new File(CustomScoreboard.getInstance().getDataFolder(), "scoreboards.yml");
+    private final File scoreboardFile = new File(CustomScoreboard.getInstance().getDataFolder(), "saved_scoreboards.yml");
     private final YamlConfiguration scoreboardConfig = YamlConfiguration.loadConfiguration(scoreboardFile);
 
     public ScoreboardFileManager() {

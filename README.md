@@ -20,9 +20,10 @@
 
 ---
 
-## Required Depdencencies
+## Required Dependencies
 
 - [PacketEvents](https://www.spigotmc.org/resources/packetevents-api.80279/)
+- [Vault](https://www.spigotmc.org/resources/vault.34315/) (optional, for economy features)
 
 ## ✨ Features
 
@@ -31,7 +32,11 @@
 - ⚙️ Fully customizable scoreboard lines via `config.yml`
 - 🔄 Automatic updates for scoreboard values
 - 📦 Event-based scoreboard assignment per player
-- Color code support using `&` as a replacement for `§` in all text [List Of Colors](https://minecraft.fandom.com/wiki/Formatting_codes)
+- 🎨 Color code support using `&` as a replacement for `§` in all text [List Of Colors](https://minecraft.fandom.com/wiki/Formatting_codes)
+- 🔄 Protocol version detection for accurate client version display
+- ⚡ Optimized TPS calculation with thread safety
+- 💾 Efficient memory management with periodic cache clearing
+- 🔧 Command system for server administrators
 
 ---
 
@@ -45,11 +50,10 @@
 
 ## ⚙️ Configuration
 
-Edit the `config.yml` file to customize your scoreboard.  
+Edit the `scoreboard.yml` file to customize your scoreboard.  
 Here's an example:
 
 ``` yaml
-scoreboard:
 scoreboard:
   "player":
     name: "&a&lPlayer&r » "
@@ -114,10 +118,18 @@ scoreboard:
 | `%version%`        | Server version                      |
 | `%player_version%` | Player's client version (e.g., 1.21.4) |
 | `%tps%`            | Server's TPS (Ticks Per Second)     |
-| `%exp%` | Player's current experience points to next level in decimal like 0.95 from 1.0 (1.0 means level up)|
-| `%time_as_ticks%`   | Worlds Time as Ticks               |
+| `%exp%`            | Player's current experience points to next level in decimal like 0.95 from 1.0 (1.0 means level up) |
+| `%time_as_ticks%`  | Worlds Time as Ticks                |
 | `%player_world_time%` | Player's current World Time      |
-| `%currency%` | Vault's currency Symbole set in config.yml      |
+| `%currency%`       | Vault's currency Symbol set in config.yml |
+
+---
+
+## 🛠️ Commands
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/customscoreboard reload` | Reloads the plugin configuration | `customscoreboard.command` |
 
 ---
 

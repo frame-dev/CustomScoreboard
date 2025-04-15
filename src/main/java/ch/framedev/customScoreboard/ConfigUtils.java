@@ -47,5 +47,10 @@ public class ConfigUtils {
             config.set("scoreboard-settings.displayName", "&6&lScoreboard");
             plugin.saveConfig();
         }
+
+        if(!config.contains("autoDownload")) {
+            config.set("autoDownload", false);
+            plugin.saveConfig();
+        }
     }
 }
