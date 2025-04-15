@@ -37,7 +37,9 @@
           "Added new features and improved the code.",
           "Added placeholder style to the scoreboard.",
           "changed name format in config.yml",
-          "Added examples to the plugin"
+          "Added examples to the plugin",
+          "updated VaultManager",
+          "Bug fixes"
         ]
       }
   ]
