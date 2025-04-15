@@ -8,6 +8,7 @@
 - Implemented asynchronous balance retrieval for better performance
 - Added multiple example scoreboard configurations
 - Added support for custom placeholder styles in config
+- Added new placeholder: `%weather%` to display current weather conditions (Sun, Rain, Thunder)
 
 ### 🐛 Fixed
 

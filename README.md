@@ -104,6 +104,7 @@ scoreboard:
 |--------------------|-------------------------------------|
 | `%player%`         | Player's name                       |
 | `%world%`          | Player's current world              |
+| `%weather%`        | Player's current weather in world   |
 | `%time%`           | Current server time                 |
 | `%date%`           | Current server date                 |
 | `%online%`         | Online player count                 |

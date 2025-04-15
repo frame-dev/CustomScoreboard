@@ -1,6 +1,7 @@
 package ch.framedev.customScoreboard;
 
 import org.bukkit.Bukkit;
+import org.bukkit.WeatherType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -401,6 +402,14 @@ public class CustomSBManager implements Listener {
                 // Check if the regex is the time as ticks regex
                 else if (regex == Regex.TIME_AS_TICKS)
                     replacements.put(regex, player.getWorld().getTime());
+                // Check if the regex is the weather regex
+                else if (regex == Regex.WEATHER) {
+                    if (isThundering(player)) {
+                        replacements.put(regex, "Thunder");
+                    } else {
+                        replacements.put(regex, getWeatherType(player) == WeatherType.DOWNFALL ? "Rain" : "Sun");
+                    }
+                }
             } catch (Exception e) {
                 // Log the error
                 plugin.getLogger().log(Level.WARNING, "Error processing regex replacement: " + regex, e);
@@ -595,5 +604,17 @@ public class CustomSBManager implements Listener {
             playerVersion = "1.6.1 or older";
         }
         return playerVersion;
+    }
+
+    public WeatherType getWeatherType(Player player) {
+        if (player.getWorld().hasStorm() || player.getWorld().isThundering()) {
+            return WeatherType.DOWNFALL;
+        } else {
+            return WeatherType.CLEAR;
+        }
+    }
+
+    public boolean isThundering(Player player) {
+        return player.getWorld().isThundering();
     }
 }

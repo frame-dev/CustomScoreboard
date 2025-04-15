@@ -48,6 +48,7 @@ public class ConfigUtils {
             plugin.saveConfig();
         }
 
+        // Auto download
         if(!config.contains("autoDownload")) {
             config.set("autoDownload", false);
             plugin.saveConfig();

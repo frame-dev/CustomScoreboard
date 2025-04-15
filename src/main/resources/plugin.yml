@@ -5,6 +5,12 @@ api-version: '1.21'
 description: A custom scoreboard plugin for Spigot.
 author: FrameDev
 
+dependencies:
+  - PacketEvents
+
+soft-dependencies:
+  - Vault
+
 commands:
   customscoreboard:
     description: A custom scoreboard plugin for Spigot.
