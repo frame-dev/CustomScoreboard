@@ -72,10 +72,13 @@ public class CustomSBManager implements Listener {
 
         String displayName = plugin.getConfig().getString("scoreboard-settings.displayName", "&6Scoreboard");
         displayName = displayName.replace("&", "§");
+
+        // Check if the scoreboard is null and create a new one if it is
         if (scoreboard == null) {
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         }
         try {
+            // Check if the objective is null and create a new one if it is
             if (scoreboard.getObjective(name) == null || objective == null && scoreboard.getObjectives().isEmpty()) {
                 objective = scoreboard.registerNewObjective(name, Criteria.DUMMY, displayName);
             } else {
@@ -85,19 +88,26 @@ public class CustomSBManager implements Listener {
                 }
             }
 
+            // Check if the objective is null and log an error if it is
             if (objective == null) {
                 plugin.getLogger().severe("Failed to create or get objective for scoreboard: " + name);
                 return;
             }
 
+            // Set the display slot and display name of the objective
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
             objective.setDisplayName(displayName);
 
+            // Serialize the scoreboard
             Map<String, Object> objectives = new CustomSerializer(name, scoreboard, objective).serialize();
+            // Save the scoreboard to the file manager
             fileManager.setScoreboard(name, objectives);
 
+            // Loop through all online players
             for (Player player : Bukkit.getOnlinePlayers()) {
+                // Create a new set of used entries
                 Set<String> usedEntries = new HashSet<>();
+                // Load the custom regex replacements
                 Map<Regex, Object> replacements = loadCustomRegexReplacements(player);
 
                 // Clear previous entries before adding new ones
@@ -105,6 +115,7 @@ public class CustomSBManager implements Listener {
                     scoreboard.resetScores(entry);
                 }
 
+                // Check if the scoreboard configuration is null and log a warning if it is
                 if (plugin.getConfig().getConfigurationSection("scoreboard") == null) {
                     plugin.getLogger().warning("No scoreboard configuration found in config.yml");
                     continue;
