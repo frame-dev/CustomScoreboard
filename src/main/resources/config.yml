@@ -10,8 +10,6 @@ scoreboard-settings:
 vault:
   symbole: '$'
 
-load: default
-
 scoreboard:
   "player":
     name: "&a&lPlayer&r » "
