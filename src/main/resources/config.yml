@@ -1,7 +1,6 @@
 formats:
   "date": "yyyy-MM-dd"
   "time": "HH:mm:ss"
-  "money": ".2f"
 
 scoreboard-settings:
   updateInterval: 10 # Seconds

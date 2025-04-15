@@ -39,6 +39,7 @@ public final class CustomScoreboard extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        // Load the examples
         loadExamples();        
 
         // Check if the server is running version 1.21.4
@@ -51,6 +52,9 @@ public final class CustomScoreboard extends JavaPlugin {
 
         // Save the default config
         saveDefaultConfig();
+
+        ConfigUtils configUtils = new ConfigUtils(this);
+        configUtils.createDefaultConfig();
 
         // Initialize the Singleton instance
         instance = this;
@@ -70,9 +74,27 @@ public final class CustomScoreboard extends JavaPlugin {
         getServer().getPluginManager().registerEvents(customSBManager, this);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> customSBManager.setScoreboard(), 240L,
                 getConfig().getInt("scoreboard-settings.updateInterval", 20) * 20L);
+                
+        // Periodically clear regex cache to prevent memory leaks
+        // Run every 30 minutes (36000 ticks)
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            if (customSBManager != null) {
+                customSBManager.clearRegexCache();
+                getLogger().info("Cleared regex replacement cache to free memory");
+            }
+        }, 36000L, 36000L);
 
-        // Lag Checker
-        getServer().getScheduler().runTaskTimerAsynchronously(this, new Lag(), 100L, 1L);
+        // Lag Checker - Run every tick to get accurate TPS
+        // Use a dedicated instance to avoid creating new objects
+        Lag lagChecker = new Lag();
+        getServer().getScheduler().runTaskTimerAsynchronously(this, lagChecker, 100L, 1L);
+        
+        // Periodically reset TPS calculation to prevent overflow
+        // Run every 6 hours (432000 ticks)
+        getServer().getScheduler().runTaskTimer(this, () -> {
+            Lag.reset();
+            getLogger().info("Reset TPS calculation to prevent overflow");
+        }, 432000L, 432000L);
 
         // Initialize PacketEvents
         PacketEvents.getAPI().init();
@@ -92,19 +114,27 @@ public final class CustomScoreboard extends JavaPlugin {
         PacketEvents.getAPI().terminate();
     }
 
+    /**
+     * Load the examples
+     */
     private void loadExamples() {
+        // Load the examples
         File examplesFolder = new File(getDataFolder(), "examples");
         if (!examplesFolder.exists()) {
             examplesFolder.mkdirs();
         }
+        // Load the example files
         String[] exampleFiles = {"custom-scoreboard-example-1.yml",
     "custom-scoreboard-example-2.yml",
     "custom-scoreboard-example-3.yml"};
+        // Load the example files
         for (String exampleFile : exampleFiles) {
             File file = new File(examplesFolder, exampleFile);
+            // If the file does not exist, copy the example file from the resources
             if (!file.exists()) {
                 File fromResource = new SimpleJavaUtils().getFromResourceFile("examples/" +exampleFile, CustomScoreboard.class);
                 try {
+                    // Copy the example file from the resources
                     Files.copy(fromResource.toPath(), file.toPath());
                 } catch (IOException e) {
                     e.printStackTrace();

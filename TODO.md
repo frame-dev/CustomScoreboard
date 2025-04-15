@@ -29,7 +29,8 @@
 - [ ] Optimize scoreboard update frequency based on server load
 - [ ] Implement caching for frequently accessed data
 - [ ] Reduce memory usage in player balance tracking
-- [ ] Optimize regex replacement system for better performance
+- [x] Optimize regex replacement system for better performance
+- [x] Optimize TPS calculation for better performance
 
 ### User Experience
 - [ ] Improve error messages for better troubleshooting
@@ -49,7 +50,7 @@
 - [ ] Fix potential race condition in player join event handling
 - [ ] Address memory leak in long-running servers
 - [ ] Fix compatibility issues with certain Vault implementations
-- [ ] Resolve placeholder replacement edge cases
+- [x] Resolve placeholder replacement edge cases
 
 ### Compatibility
 - [ ] Ensure compatibility with future Minecraft versions

@@ -386,6 +386,20 @@ public class CustomSBManager implements Listener {
         }, 120);
     }
 
+    /**
+     * Clear the regex replacement cache to free memory
+     * This should be called periodically or when memory usage is high
+     */
+    public void clearRegexCache() {
+        Regex.clearCache();
+    }
+
+    /**
+     * Get the player version based on protocol version
+     * 
+     * @param protocolVersion The protocol version
+     * @return The player version
+     */
     private String getPlayerVersion(int protocolVersion) {
         String playerVersion = "Unknown";
         // Map protocol version to Minecraft version
