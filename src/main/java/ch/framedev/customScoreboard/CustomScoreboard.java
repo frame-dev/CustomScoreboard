@@ -1,5 +1,8 @@
 package ch.framedev.customScoreboard;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -7,7 +10,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.github.retrooper.packetevents.PacketEvents;
+import java.nio.file.Files;
 
+import ch.framedev.simplejavautils.SimpleJavaUtils;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 
 public final class CustomScoreboard extends JavaPlugin {
@@ -33,6 +38,9 @@ public final class CustomScoreboard extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        loadExamples();        
+
         // Check if the server is running version 1.21.4
         if (!getServer().getVersion().contains("1.21.4")) {
             getLogger().severe("This plugin is not compatible with this version of Minecraft!");
@@ -82,6 +90,27 @@ public final class CustomScoreboard extends JavaPlugin {
 
         // Terminate PacketEvents
         PacketEvents.getAPI().terminate();
+    }
+
+    private void loadExamples() {
+        File examplesFolder = new File(getDataFolder(), "examples");
+        if (!examplesFolder.exists()) {
+            examplesFolder.mkdirs();
+        }
+        String[] exampleFiles = {"custom-scoreboard-example-1.yml",
+    "custom-scoreboard-example-2.yml",
+    "custom-scoreboard-example-3.yml"};
+        for (String exampleFile : exampleFiles) {
+            File file = new File(examplesFolder, exampleFile);
+            if (!file.exists()) {
+                File fromResource = new SimpleJavaUtils().getFromResourceFile("examples/" +exampleFile, CustomScoreboard.class);
+                try {
+                    Files.copy(fromResource.toPath(), file.toPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**

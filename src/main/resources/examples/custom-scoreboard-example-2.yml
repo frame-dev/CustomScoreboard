@@ -1,21 +1,4 @@
-formats:
-  "date": "yyyy-MM-dd"
-  "time": "HH:mm:ss"
-  "money": ".2f"
-
-scoreboard-settings:
-  updateInterval: 10 # Seconds
-  displayName: "&6&lScoreboard"
-  placeholder-style: "════════════════════"
-vault:
-  symbole: '$'
-
-load: default
-
 scoreboard:
-  "player":
-    name: "&a&lPlayer&r » "
-    value: "%player%"
   "placeHolder1":
     name: "placeholder"
     value: "--------------------------------"
@@ -25,30 +8,24 @@ scoreboard:
   "world":
     name: "&a&lWorld&r » "
     value: "%world%"
-  "coordinates":
-    name: "&a&lCoordinates&r » "
-    value: "%coordinates%"
-  "level":
-    name: "&a&lLevel&r » "
-    value: "%level%"
   "player-time":
     name: "&a&lPlayer Time&r » "
     value: "%player_world_time%"
-  "money":
-    name: "&a&lMoney&r » "
-    value: "%money%%currency%"
   "tps":
     name: "&a&lTPS&r » "
     value: "%tps%"
-  "player-version":
-    name: "&a&lPlayer Version&r » "
-    value: "%player_version%"
+  "player":
+    name: "&a&lPlayer&r » "
+    value: "%player%"
   "placeHolder2":
     name: "placeholder"
     value: "--------------------------------"
   "online-players":
     name: "&a&lOnline Players&r » "
     value: "%online% / %max_players%"
+  "placeHolder3":
+    name: "placeholder"
+    value: "--------------------------------"
   "server-name":
     name: "&a&lServerName&r » "
     value: "&6Your Server Name"

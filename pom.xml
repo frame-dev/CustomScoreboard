@@ -66,6 +66,10 @@
             <id>codemc-snapshots</id>
             <url>https://repo.codemc.io/repository/maven-snapshots/</url>
         </repository>
+        <repository>
+            <id>framedev-repository</id>
+            <url>https://repository.framedev.ch:444/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -86,6 +90,12 @@
             <artifactId>packetevents-spigot</artifactId>
             <version>2.7.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.framedev</groupId>
+            <artifactId>SimpleJavaUtils</artifactId>
+            <version>1.1.6-RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,17 +1,3 @@
-formats:
-  "date": "yyyy-MM-dd"
-  "time": "HH:mm:ss"
-  "money": ".2f"
-
-scoreboard-settings:
-  updateInterval: 10 # Seconds
-  displayName: "&6&lScoreboard"
-  placeholder-style: "════════════════════"
-vault:
-  symbole: '$'
-
-load: default
-
 scoreboard:
   "player":
     name: "&a&lPlayer&r » "
@@ -25,18 +11,9 @@ scoreboard:
   "world":
     name: "&a&lWorld&r » "
     value: "%world%"
-  "coordinates":
-    name: "&a&lCoordinates&r » "
-    value: "%coordinates%"
-  "level":
-    name: "&a&lLevel&r » "
-    value: "%level%"
   "player-time":
     name: "&a&lPlayer Time&r » "
     value: "%player_world_time%"
-  "money":
-    name: "&a&lMoney&r » "
-    value: "%money%%currency%"
   "tps":
     name: "&a&lTPS&r » "
     value: "%tps%"
